@@ -1,0 +1,51 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'search spaced-icon'}} {{short-text smartlinkController.name size=15}} Inspections</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view weathermatic-page-bottom">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'search'}} {{t 'inspections.subTitle'}}
+    </li>
+    <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.inspections.new-inspection'}}
+          {{t 'inspections.create'}}
+          <p>Click to create an inspection</p>
+        {{/link-to}}
+    </li>
+    {{#each model as |inspection|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.inspections.select-inspection' inspection.id}}
+          {{#if inspection.title}}
+            {{inspection.title}}
+          {{else}}
+            Inspection {{inspection.id}}
+          {{/if}}
+          {{#if inspection.date}}
+          <p>{{inspection.date}}</p>
+          {{/if}}
+        {{/link-to}}
+      </li>
+    {{else}}
+      <li class="table-view-cell weathermatic-error-list-item">
+        <center>
+          <h1 class="weathermatic-warning-icon">
+            {{fa-icon 'warning fa-3x'}}
+          </h1>
+          <h4>
+            No inspections set up for this controller
+          </h4>
+        </center>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

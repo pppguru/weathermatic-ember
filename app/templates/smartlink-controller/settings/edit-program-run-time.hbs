@@ -1,0 +1,113 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.program-run-times' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Zone {{model.number}} Run Times</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <ul class="table-view weathermatic-select-edit-program">
+    <li class="table-view-cell weathermatic-select-program-a">
+      <span class="pull-left">
+        <h3>{{t 'common.program'}} A</h3>
+        {{#if model.programZoneA.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneA.program.description}}</p>
+        {{/if}}
+      </span>
+      {{#if model.programZoneA.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
+          <select onchange={{action (mut model.programZoneA.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneA.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      {{/if}}
+    </li>
+    <li class="table-view-cell weathermatic-select-program-b">
+      <span class="pull-left">
+        <h3>{{t 'common.program'}} B</h3>
+        {{#if model.programZoneB.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneB.program.description}}</p>
+        {{/if}}
+      </span>
+      {{#if model.programZoneB.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
+          <select onchange={{action (mut model.programZoneB.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneB.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      {{/if}}
+    </li>
+    <li class="table-view-cell weathermatic-select-program-c">
+      <span class="pull-left">
+        <h3>{{t 'common.program'}} C</h3>
+        {{#if model.programZoneC.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneC.program.description}}</p>
+        {{/if}}
+      </span>
+      {{#if model.programZoneC.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
+          <select onchange={{action (mut model.programZoneC.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneC.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      {{/if}}
+    </li>
+    <li class="table-view-cell weathermatic-select-program-d">
+      <span class="pull-left">
+        <h3>{{t 'common.program'}} D</h3>
+        {{#if model.programZoneD.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneD.program.description}}</p>
+        {{/if}}
+      </span>
+      {{#if model.programZoneD.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
+          <select onchange={{action (mut model.programZoneD.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneD.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      {{/if}}
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} {{t 'common.save'}}
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

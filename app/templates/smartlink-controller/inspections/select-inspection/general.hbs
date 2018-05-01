@@ -1,0 +1,54 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.inspections.select-inspection' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'search'}} General Inspections </h1>
+</header>
+<div id="general-inspection" class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      General Information
+    </li>
+  </ul>
+  <div class="general-info">
+    <div class="section">
+      <h2 class="section-title">{{t 'inspections.inspection'}}</h2>
+      <ul class="section-content">
+        <li class="section-list"><span>{{t 'generalInspection.date'}}:</span> {{model.inspection.date}} </li>
+        <li class="section-list"><span>{{t 'generalInspection.inspector'}}:</span> {{model.inspection.inspector_name}} </li>
+        <li class="section-list"><span>{{t 'generalInspection.type'}}:</span> {{scheduleType}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.compliant'}}:</span>
+        {{#if model.prior_configuration_compliant}}
+        {{t 'emailInspection.photos.yes'}}
+        {{else}}
+        {{t 'emailInspection.photos.no'}}
+        {{/if}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.function'}}</span>
+        {{#if model.prior_configuration_rf_present}}
+        {{t 'emailInspection.photos.yes'}}
+        {{else}}
+        {{t 'emailInspection.photos.no'}}
+        {{/if}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.waterPressure'}}:</span> {{model.inspection.water_pressure}} PSI </li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2 class="section-title">{{t 'common.site'}}</h2>
+      <ul class="section-content">
+        <li class="section-list"><span>{{t 'generalInspection.name'}}:</span> {{model.controller.site.name}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.location'}}:</span> {{address}}</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2 class="section-title">{{t 'common.controller'}}</h2>
+      <ul class="section-content">
+        <li class="section-list"><span>{{t 'generalInspection.name'}}:</span> {{model.controller.name}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.model'}}:</span> {{model.controller.model}} </li>
+        <li class="section-list"><span>{{t 'generalInspection.waterPressure'}}:</span> {{model.inspection.controller.zone_count}}</li>
+        <li class="section-list" style="display:none"><span>Aircard:</span> </li>
+        <li class="section-list" style="display:none"><span>SLW:</span> </li>
+      </ul>
+    </div>
+
+  </div>
+</div>

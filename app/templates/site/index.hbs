@@ -1,0 +1,18 @@
+{{#each model as |smartlinkController|}}
+  <li class="table-view-cell smartlink-controller-cell">
+    {{#link-to 'smartlink-controller' smartlinkController class='push-right'}}
+      {{smartlinkController.name}}
+      {{#if smartlinkController.faults.length}}
+        <span class="badge badge-negative">
+          {{smartlinkController.faults.length}} {{t "sites.faultUnit"}}{{#if (gt site.faultsCount 1)}}s{{/if}}
+        </span>
+      {{/if}}
+    {{/link-to}}
+  </li>
+{{else}}
+  <li class="table-view-cell smartlink-controller-cell">
+    <center>
+      {{fa-icon 'times'}} There are no controllers at this site
+    </center>
+  </li>
+{{/each}}

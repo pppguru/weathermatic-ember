@@ -1,0 +1,42 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.inspections.select-inspection' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - Select Zone</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view weathermatic-page-bottom">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'signal'}} {{t 'inspections.subTitle'}}
+    </li>
+    {{#each model.zones as |zone|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection' zone.id class='push-right'}}
+          {{#if zone.description}}
+            {{zone.description}}
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
+          {{else}}
+            {{t 'common.zone'}} {{zone.number}}
+            <p>&nbsp;</p>
+          {{/if}}
+        {{#if zone.status}}
+          <div class="checked">{{fa-icon 'check'}}</div>
+        {{/if}}
+        {{/link-to}}
+      </li>
+    {{else}}
+      <li class="table-view-cell weathermatic-error-list-item">
+        <center>
+          <h1 class="weathermatic-warning-icon">
+            {{fa-icon 'warning fa-3x'}}
+          </h1>
+          <h4>
+            No zones set up for this controller
+          </h4>
+        </center>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+

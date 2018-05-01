@@ -1,0 +1,62 @@
+<header class="bar bar-nav weathermatic-header">
+  <a href="javascript:void(0)" {{action 'abandon'}} class="btn btn-link btn-nav pull-right">
+    <span class="icon icon-close"></span>
+  </a>
+  {{logo-header}}
+</header>
+
+<div class="content">
+  <center class="weathermatic-loading-message">
+    {{#if isLoadingFinished}}
+      {{fa-icon 'check-circle-o fa-5x weathermatic-save-success'}}
+      <h4 class="weathermatic-loading-message-text">Success!</h4>
+      <div class="content-padded">
+        <p>{{saveMessage}}</p>
+        <button {{action 'close'}}
+          class="btn btn-positive btn-block weathermatic-loading-mesage-dismiss">
+          {{fa-icon 'times'}} Dismiss
+        </button>
+      </div>
+    {{else}}
+      <div class="content-padded">
+        <h2>Communicating with Smartlink</h2>
+      </div>
+    {{/if}}
+
+
+    {{#if instruction}}
+      <h4>Status:</h4>
+      <br>
+      <div class="content-padded">
+        <button class="btn btn-block {{instructionStatusCssClass}}">
+          {{#if instruction.isInProgress}}
+            {{fa-icon 'gear fa-spin'}}
+          {{/if}}
+
+          {{#if instruction.isStatusFinished}}
+            {{fa-icon 'check-circle'}}
+          {{/if}}
+
+          {{#if instruction.isStatusError}}
+            {{fa-icon 'warning'}}
+          {{/if}}
+
+          {{statusMessage}}
+        </button>
+
+        {{#if instruction.isStatusError}}
+          <p>
+            Our servers encountered a problem while processing your command.
+            Please try again later.
+          </p>
+          <button class="btn btn-primary" {{action 'close'}}>{{fa-icon 'times'}} Dismiss</button>
+        {{/if}}
+      </div>
+    {{else}}
+      {{#unless isLoadingFinished}}
+        <h4>Please stand by</h4>
+        {{loading-indicator}}
+      {{/unless}}
+    {{/if}}
+  </center>
+</div>

@@ -1,0 +1,33 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.programming' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Program Seasonal Adjust</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <ul class="table-view weathermatic-page-bottom">
+    {{#each model.months as |month|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' month.index}}
+          <h4>{{month.name}}</h4>
+          <div class="segmented-control">
+            <a class="control-item weathermatic-select-program-a">{{t 'common.programs.a'}}: {{month.programASeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-b">{{t 'common.programs.b'}}: {{month.programBSeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-c">{{t 'common.programs.c'}}: {{month.programCSeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-d">{{t 'common.programs.d'}}: {{month.programDSeasonalAdjust.percentage}}%</a>
+          </div>
+        {{/link-to}}
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

@@ -1,0 +1,28 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.inspections.select-inspection' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'fa-clipboard'}} Seasonal </h1>
+</header>
+<div id="seasonal-inspection" class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      Seasonal Information
+    </li>
+  </ul>
+  <div class="general-info">
+    <div class="section">
+      {{#each (getMonthsOfYear) as |month monthIndex|}}
+      <h2 class="section-title">{{month}}</h2>
+      <ul class="section-content">
+        {{#each model.insp_programs as |program| }}
+        <li class="section-list program-a">
+          <span class="seasonal-program">Program {{program.identifier}}</span>
+          <span class="seasonal-percentage">{{getSeasonPercentageByMonth program.program_seasonal_adjustments monthIndex}}%</span>
+        </li>
+        {{/each}}
+      </ul>
+      {{/each}}
+    </div>
+  </div>
+</div>

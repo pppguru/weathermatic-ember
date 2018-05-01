@@ -1,0 +1,54 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'controllerOptions.controlProgram'}}</h1>
+</header>
+
+
+  <div class="content weathermatic-content weathermatic-controller-page programming">
+    <div></div>
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
+  <ul class="table-view">
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-controller-basic'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'gear spaced-icon'}} {{t 'programming.basic'}}</h2>
+          <p>{{t 'programming.basicMessage'}}</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.programming'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'play spaced-icon'}} {{t 'programming.program'}}</h2>
+          <p>{{t 'programming.programMessage'}}</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.flow'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'filter spaced-icon'}} {{t 'programming.flow'}}</h2>
+          <p>{{t 'programming.flowMessage'}}</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-labels'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'leaf spaced-icon'}} {{t 'programming.edit'}}</h2>
+          <p>{{t 'programming.editMessage'}}</p>
+        </div>
+      {{/link-to}}
+    </li>
+  </ul>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

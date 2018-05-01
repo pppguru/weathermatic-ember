@@ -1,0 +1,265 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.program-details' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{#if model.description.length}}
+          {{short-text model.description}}
+          {{else}}
+            {{#if (eq model.identifier "A")}}
+                {{t 'common.program'}} A
+            {{/if}}
+            {{#if (eq model.identifier "B")}}
+                {{t 'common.program'}} B
+            {{/if}}
+            {{#if (eq model.identifier "C")}}
+                {{t 'common.program'}} C
+            {{/if}}
+            {{#if (eq model.identifier "D")}}
+                {{t 'common.program'}} D
+            {{/if}}
+          {{/if}}</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <div class="program-detail weathermatic-page-bottom">
+  <ul class="table-view">
+    {{#if isDayOfWeekProgramTypeSelected}}
+      <li class="table-view-cell">
+        <div class="btn-group">
+        {{#each programInstance.DaysOfWeek as |day|}}
+          {{#if day.isOmitted}}
+            <button type="button" class="btn btn-warning">X</button>
+          {{else}}
+            <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}" {{action "toggleDay" day}}>
+            {{#if (eq day.label "Sun")}}
+              {{t 'common.daysOfWeek.sun'}}
+            {{/if}}
+            {{#if (eq day.label "Mon")}}
+              {{t 'common.daysOfWeek.mon'}}
+            {{/if}}
+            {{#if (eq day.label "Tue")}}
+              {{t 'common.daysOfWeek.tue'}}
+            {{/if}}
+            {{#if (eq day.label "Wed")}}
+              {{t 'common.daysOfWeek.wed'}}
+            {{/if}}
+            {{#if (eq day.label "Thu")}}
+              {{t 'common.daysOfWeek.thurs'}}
+            {{/if}}
+            {{#if (eq day.label "Fri")}}
+              {{t 'common.daysOfWeek.fri'}}
+            {{/if}}
+            {{#if (eq day.label "Sat")}}
+              {{t 'common.daysOfWeek.sat'}}
+            {{/if}}
+            </button>
+          {{/if}}
+        {{/each}}
+        </div>
+      </li>
+    {{else}}
+      <li class="table-view-cell">
+        <div class="btn-group">
+        {{#each programInstance.DaysOfWeek as |day|}}
+          {{#if day.isOmitted}}
+            <button type="button" class="btn btn-warning">X</button>
+          {{else}}
+            <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}">{{day.label}}</button>
+          {{/if}}
+        {{/each}}
+        </div>
+      </li>
+    {{/if}}
+
+    <li class="table-view-cell">
+      <a href="javascript:void(0)" class="push-right" {{action 'setEditDescriptionOpen'}}>
+        {{t 'common.description'}}
+      </a>
+    </li>
+
+    <li class="table-view-cell">
+      <a href="javascript:void(0)" class="push-right program" {{action 'setProgramTypeOpen'}} data-value="{{programInstance.selectedProgramType.value}}">
+        {{t 'common.dayOfWeek'}}
+      </a>
+    </li>
+
+    {{#if isOddEvenProgramTypeSelected}}
+     <li class="table-view-cell">
+      <a href="javascript:void(0)" class="push-right odd" {{action 'setOddEvenOpen'}} data-value="{{programInstance.selectedOddEvenProgram.value}}">
+        {{programInstance.selectedOddEvenProgram.label}}
+      </a>
+    </li>
+    {{else if isIntervalProgramTypeSelected}}
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right start" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.interval_start}}">
+          {{programInstance.selectedIntervalProgram.interval_start_label}}
+        </a>
+      </li>
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right days" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.days_interval}}">
+          {{programInstance.selectedIntervalProgram.days_interval_label}}
+        </a>
+      </li>
+    {{/if}}
+    {{#each programInstance.programStartTimes as |programStartTime|}}
+       <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" {{action 'setStartTimeOpen' programStartTime.id}}>
+          {{#if programStartTime.start_time.length}}
+            <small>{{t 'common.startTime'}} {{programStartTime.number}}:</small>
+            <strong>{{format-time programStartTime.start_time}}</strong>
+          {{else}}
+            <small>{{t 'common.startTime'}} {{programStartTime.number}}: </small>
+            <strong>{{t 'common.off'}}</strong>
+          {{/if}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+  <div class="content-padded">
+    <button style="padding: 15px 1px; font-size: 18px;" class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} {{t 'common.save'}}
+    </button>
+  </div>
+  </div>
+</div>
+
+<div id="set-program-type" class="modal {{if isSetProgramTypeOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetProgramType'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+    {{#each availableProgramTypes as |programType|}}
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" {{action 'setProgramType' programType.value}}>
+            {{programType.label}}
+        </a>
+      </li>
+    {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div id="set-odd-even" class="modal {{if isSetOddEvenOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetOddEven'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+    {{#each OddEven as |od|}}
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" {{action 'setOddEven' od.value}}>
+            {{od.label}}
+        </a>
+      </li>
+    {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div id="set-interval" class="modal {{if isSetIntervalOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetInterval'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <center>
+    <form class="weathermatic-zone-configure-auto-adjust">
+      <p>Interval Start Day:</p>
+      <center>
+       <select onchange={{action (mut programInstance.selectedIntervalProgram.interval_start) value="target.value"}}>
+         {{#each programInstance.DaysOfWeek as |dayOfWeek|}}
+           <option value={{dayOfWeek.value}}
+             selected={{equiv dayOfWeek.value intervalStartAsInt}}>{{dayOfWeek.label}}</option>
+         {{/each}}
+       </select>
+      </center>
+          <p>Interval Days:</p>
+      <center>
+        <select onchange={{action (mut programInstance.selectedIntervalProgram.days_interval) value="target.value"}}>
+          {{#each DaysInterval as |days|}}
+            <option value={{days}} selected={{equiv days programInstance.selectedIntervalProgram.days_interval}}>{{days}}</option>
+          {{/each}}
+       </select>
+      </center>
+    </form>
+    </center>
+
+    <div class="content-padded">
+      <button class="btn btn-block btn-positive" {{action 'setInterval'}}>
+        {{fa-icon 'check'}} Ok
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="set-start-times" class="modal {{if isSetStartTimeOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetStartTime'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content" data-value="{{programInstance.currentSelectedStartTime.id}}">
+    <center>
+    <form class="weathermatic-zone-configure-auto-adjust">
+      <p>{{t 'common.startTime'}}:</p>
+      <center>
+       <select onchange={{action (mut programInstance.currentSelectedTimeSlot.id) value="target.value"}}>
+         {{#each availableTimeSlots as |slot|}}
+         <option value="{{slot.id}}"
+           selected={{equiv slot.id programInstance.currentSelectedTimeSlot.id}}>{{slot.value}}</option>
+         {{/each}}
+       </select>
+       &nbsp;
+       <select onchange={{action (mut programInstance.currentSelectedAmPm) value="target.value"}}>
+         {{#each availableAmPm as |amPm|}}
+         <option value="{{amPm}}"
+           selected={{equiv amPm programInstance.currentSelectedAmPm}}>{{amPm}}</option>
+         {{/each}}
+       </select>
+      </center>
+    </form>
+    </center>
+
+    <div class="content-padded">
+      <button class="btn btn-block btn-positive" {{action 'setStartTime'}}>
+        {{fa-icon 'check'}} Ok
+      </button>
+    </div>
+  </div>
+</div>
+
+{{#modal-dialog isActive=isEditDescriptionOpen}}
+  <header class="bar bar-nav weathermatic-header">
+    <a href="javascript:void(0)" class="icon icon-close pull-right" {{action 'closeEditDescription'}}></a>
+    <h1 class="title">{{fa-icon 'edit'}} Edit Description</h1>
+  </header>
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      <li class="table-view-cell">
+        {{textarea value=pendingDescription rows=4 class='full-width-textarea'}}
+      </li>
+    </ul>
+
+    <div class="content-padded">
+      <button class="btn btn-positive btn-block" {{action 'setEditedDescription'}}>
+        {{fa-icon 'save'}} Ok
+      </button>
+    </div>
+  </div>
+{{/modal-dialog}}
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
+
+{{comm-log smartlinkController=model.smartlinkController close='commLogClosed' actionReceiver=commLog}}

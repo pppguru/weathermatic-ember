@@ -1,0 +1,66 @@
+<header class="bar bar-nav weathermatic-header">
+  {{logo-header}}
+</header>
+
+<div class="content weathermatic-content">
+  <div class="content-padded">
+    <form id="login-form" onsubmit="return false;" {{action 'logIn' on='submit'}}>
+      <center>
+        <h2>
+          {{fa-icon 'key'}} {{t 'login.text'}}
+        </h2>
+        <br>
+        {{input type='email' placeholder='Email' value=email required=true}}
+        {{input type='password' placeholder='Password' value=password required=true}}
+
+        <!-- Looks stupid, but required for iOS:
+          http://stackoverflow.com/questions/5329192/search-button-works-on-simulator-but-not-on-device-jqtouch-and-phonegap
+
+          Without this, iOS ignores the onsubmit attribute on the form (in which we tell the form not to submit) and
+          the form will actually try to submit (to nowhere), which takes the user off to a useless blank screen that
+          they can't recover from without restarting the app :(
+        -->
+        <input name="dummy" type="submit" value="" style="position:absolute; visibility:hidden;"/>
+
+        <button id="login-button" class="btn btn-block btn-positive" onclick="return false;"
+          {{action 'logIn'}} {{bind-attr disabled=isLoading}}>
+
+          {{#if hasErrored}}
+            {{t 'login.retryButton'}}
+          {{else}}
+            {{t 'login.loginButton'}}
+          {{/if}}
+
+          {{#if isLoading}}
+            {{fa-icon 'spinner fa-pulse'}}
+          {{else}}
+            {{fa-icon 'sign-in'}}
+          {{/if}}
+        </button>
+        {{#if isError}}
+          <div class="errors">
+            <center>
+              <h4>{{fa-icon 'warning'}} {{t 'login.error'}}</h4>
+            </center>
+            <p class="messages">{{t 'login.errorMessage'}}</p>
+          </div>
+        {{/if}}
+        <p class="login-help">{{t 'login.disclaimer'}}
+          <a href="javascript:void(0)" {{action 'createAccount'}}>
+            <strong>smartlinknetwork.com</strong>
+          </a>
+          {{t 'login.disclaimerCont'}}
+        </p>
+      </center>
+    </form>
+  </div>
+</div>
+
+<div id="login-success" {{bind-attr class=':modal isSuccess:active'}}>
+  <div class="content-padded loading-icon">
+    <br>
+    <h1>
+      <center>{{fa-icon 'spinner fa-pulse'}} {{t 'common.status'}}</center>
+    </h1>
+  </div>
+</div>

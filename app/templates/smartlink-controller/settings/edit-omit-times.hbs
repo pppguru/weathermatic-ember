@@ -1,0 +1,136 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.programming' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'times-circle-o'}} {{t 'omit.title'}}</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+        {{t 'omit.specificTime'}}:
+    </li>
+    <li class="table-view-cell">
+      <span> From </span>
+      <span class="pull-right weathermatic-settings-input-small">
+        <select onchange={{action (mut omissionTime.startTimeHours) value="target.value"}}>
+          {{#each availableOmitTimes as |time|}}
+          <option value={{time.value}}
+            selected={{equiv time.value omissionTime.startTimeHours}}>{{time.label}}</option>
+          {{/each}}
+        </select>
+
+        <select onchange={{action (mut omissionTime.startTimeAmPm) value="target.value"}}>
+          {{#each timeSuffix as |amPm|}}
+          <option value="{{amPm.value}}"
+            selected={{equiv amPm.value omissionTime.startTimeAmPm}}>{{amPm.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span> To </span>
+      <span class="pull-right weathermatic-settings-input-small">
+        <select onchange={{action (mut omissionTime.endTimeHours) value="target.value"}}>
+          {{#each availableOmitTimes as |time|}}
+          <option value={{time.value}}
+            selected={{equiv time.value omissionTime.endTimeHours}}>{{time.label}}</option>
+          {{/each}}
+        </select>
+
+        <select onchange={{action (mut omissionTime.endTimeAmPm) value="target.value"}}>
+          {{#each timeSuffix as |amPm|}}
+          <option value="{{amPm.value}}"
+            selected={{equiv amPm.value omissionTime.endTimeAmPm}}>{{amPm.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+    <li class="table-view-cell table-view-divider">
+      {{t 'omit.specificDay'}}:
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'common.daysOfWeek.sun'}}</span>
+      <span class="pull-right weathermatic-settings-input-small ">
+        {{toggle-input value=isSundaySelected}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'common.daysOfWeek.mon'}}</span>
+      <span class="pull-right weathermatic-settings-input-small ">
+        {{toggle-input value=isMondaySelected}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'common.daysOfWeek.tue'}}</span>
+      <span class="pull-right weathermatic-settings-input-small ">
+        {{toggle-input value=isTuesdaySelected}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'common.daysOfWeek.wed'}}</span>
+      <span class="pull-right weathermatic-settings-input-small ">
+        {{toggle-input value=isWednesdaySelected}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'common.daysOfWeek.thurs'}}</span>
+      <span class="pull-right weathermatic-settings-input-small ">
+        {{toggle-input value=isThursdaySelected}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'common.daysOfWeek.fri'}}</span>
+      <span class="pull-right weathermatic-settings-input-small ">
+        {{toggle-input value=isFridaySelected}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'common.daysOfWeek.sat'}}</span>
+      <span class="pull-right weathermatic-settings-input-small ">
+        {{toggle-input value=isSaturdaySelected}}
+      </span>
+    </li>
+    <li class="table-view-cell table-view-divider">
+      {{t 'omit.specificDates'}}:
+    </li>
+    {{#each omissionDates as |od|}}
+      <li class="table-view-cell">
+        <span class='pull-left'>
+          <span class='badge badge-primary'>{{od.number}}</span>
+        </span>
+        <span class="pull-right weathermatic-settings-input-small ">
+          <select onchange={{action (mut od.object.monthNumber) value="target.value"}}>
+            {{#each monthsOfYear as |month|}}
+            <option value={{month.value}}
+              selected={{equiv month.value od.object.monthNumber}}>{{month.label}}</option>
+            {{/each}}
+          </select>
+
+          <select onchange={{action (mut od.object.dayNumber) value="target.value"}}>
+            {{#each daysOfMonth as |day|}}
+              <option value="{{day.value}}"
+                selected={{equiv day.value od.object.dayNumber}}>{{day.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+    {{/each}}
+
+  </ul>
+  <div class="content-padded weathermatic-page-bottom">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} {{t 'common.save'}}
+    </button>
+  </div>
+
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

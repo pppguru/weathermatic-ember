@@ -1,0 +1,36 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.inspections.select-inspection' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'fa-clipboard'}} Programs </h1>
+</header>
+<div id="program-inspection" class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      Program Information
+    </li>
+  </ul>
+  <div class="general-info">
+    {{#each model.insp_programs as |program|}}
+    <div class="section">
+      <div class="section-title">
+        <span class="program-title">Program {{program.identifier}}</span>
+        <span class="program-details">{{t 'programInspection.settings'}}</span>
+      </div>
+      <ul class="days-of-week">
+        <li class="day {{if (containsItem program.days_of_week '0') "active"}}">{{t 'programInspection.daysOfWeek.sun'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '1') "active"}}">{{t 'programInspection.daysOfWeek.mon'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '2') "active"}}">{{t 'programInspection.daysOfWeek.tue'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '3') "active"}}">{{t 'programInspection.daysOfWeek.wed'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '4') "active"}}">{{t 'programInspection.daysOfWeek.thurs'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '5') "active"}}">{{t 'programInspection.daysOfWeek.fri'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '6') "active"}}">{{t 'programInspection.daysOfWeek.sat'}}</li>
+      </ul>
+      <div class="section-content">
+        <span class="start-time"></span>
+        <span class="end-time"></span>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.auto-adjust' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Edit Smart Settings</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <ul class="table-view">
+    {{#if isMetricEnabled}}
+      <li class="table-view-cell">
+        <span>Sprinkler Type</span>
+        <span class="pull-right weathermatic-settings-input-large">
+          <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
+            {{#each availableSprinklerTypesMetric as |sprinkler|}}
+              <option value={{sprinkler.value}}
+                selected={{equiv sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+    {{else}}
+      <li class="table-view-cell">
+        <span>Sprinkler Type</span>
+        <span class="pull-right weathermatic-settings-input-large">
+          <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
+            {{#each availableSprinklerTypesImperial as |sprinkler|}}
+              <option value={{sprinkler.value}}
+                selected={{equiv sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+    {{/if}}
+
+    <li class="table-view-cell">
+      <span>Plant Type</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.plantType) value="target.value"}}>
+          {{#each availablePlantTypes as |plantType|}}
+            <option value={{plantType.value}}
+              selected={{equiv plantType.value model.plantType}}>{{plantType.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+
+    <li class="table-view-cell">
+      <span>Soil Type</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.soilType) value="target.value"}}>
+          {{#each availableSoilTypes as |soilType|}}
+            <option value={{soilType.value}}
+              selected={{equiv soilType.value model.soilType}}>{{soilType.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+
+    <li class="table-view-cell">
+      <span>Slope</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.soilSlope) value="target.value"}}>
+          {{#each slopeValues as |soilSlope|}}
+            <option value={{soilSlope.value}}
+              selected={{equiv soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+
+    <li class="table-view-cell">
+      <span>More / Less</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.adjustment) value="target.value"}}>
+          {{#each moreLessValues as |moreLess|}}
+            <option value={{moreLess.value}}
+              selected={{equiv moreLess.value model.adjustment}}>{{moreLess.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} {{t 'common.save'}}
+    </button>
+  </div>
+
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

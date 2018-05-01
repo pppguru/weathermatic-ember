@@ -1,0 +1,36 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">
+    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - {{t 'selectProgram.headerTitle'}}
+  </h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider weathermatic-select-program-call-to-action">
+      {{fa-icon 'play'}} {{t 'selectProgram.subTitle'}}
+    </li>
+    {{#each model as |program|}}
+      {{select-program-item program=program}}
+    {{else}}
+      <li class="table-view-cell weathermatic-error-list-item">
+        <center>
+          <h1 class="weathermatic-warning-icon">
+            {{fa-icon 'warning fa-3x'}}
+          </h1>
+          <h4>
+            No programs set up for this controller
+          </h4>
+        </center>
+      </li>
+    {{/each}}
+  </ul>
+
+  <div class="content-padded">
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
+      {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
+    {{/link-to}}
+  </div>
+</div>

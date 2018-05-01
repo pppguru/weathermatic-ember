@@ -1,0 +1,1681 @@
+body {
+
+  background-color: #efeff4;
+}
+.disabled .fa {
+    color: #ccc;
+}
+.section.zones button,
+.section.zones .button {
+    margin: 2px 0 0 0;
+}
+.zones div.fa-chevron-right {
+    float: right;
+}
+h2 {
+  font-size: 25px;
+}
+.section select {
+  -webkit-appearance: menulist;
+}
+.ember-view {
+  height:100%;
+}
+.radio-button input {
+  display: none;
+}
+.content-padded.loading-icon {
+  margin: 0;
+}
+#date,#time {
+  font-size:15px
+}
+.same-line input[type="date"] {
+  width: 60%;
+  font-size: 12px;
+}
+.same-line input[type="time"] {
+  width: 35%;
+  font-size: 12px;
+  padding: 10px
+}
+#zone-thumbnail {
+  position: absolute;
+}
+.inspection-error {
+    font-size: 14px;
+    display: block;
+    line-height: 18px;
+    margin: 0 0 5px 0;
+    color: #f00;
+}
+.weathermatic-header a.icon.cog-icon {
+    position: absolute;
+    top: 0px;
+    right: 0;
+}
+.radio-button input + label {
+    display: inline-block;
+    padding: 8px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #b9b9b9;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    font-weight: bold;
+    background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+    background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+    background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-bottom-color: #b3b3b3;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.radio-button input:checked + label{
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: #5cb85c;
+    color: #fff;
+    text-shadow: none;
+  }
+.content-padded.zone-image {
+    margin: 65px 0 0 0;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    background: #000;
+    height: 150px;
+}
+.email-inspection-form {
+    padding: 20px 15px 0 15px;
+    margin: 65px 0 0 0;
+    font-size: 14px;
+}
+.email-inspection-form label {
+    margin: 0 0 10px 0;
+    display: block;
+}
+
+#note {
+  padding: 10px;
+  font-size: 14px;
+}
+.section.zones {
+  position: fixed;
+  z-index: 10;
+  background: #fff !important;
+  top: 63px;
+  width: 100%;
+  padding: 5px 10px;
+  border-bottom: solid 1px #ccc;
+  .currentZone {
+    font-size: 12px;
+    font-weight: normal;
+    .current,#title {
+      width: 100%;
+      line-height: 12px;
+      padding: 5px 0 0 0;
+      font-weight: 400;
+    }
+    #title {
+      font-size: 19px;
+      font-weight: 700;
+      padding: 7px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 14px;
+      margin: 0;
+    }
+  }
+  button,.button {
+    display: block;
+    color: #000;
+    height: 100%;
+    font-size: 46px;
+    width: 20%;
+    float: left;
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    span {
+      font-size: 14px;
+      text-align: center;
+      display: block;
+      line-height: 83px;
+      font-weight: bold;
+      color: #373737;
+    }
+  }
+}
+.zones {
+    button,.button {
+      display: block;
+      color: #000;
+      height: 100%;
+      font-size: 46px;
+      width: 20%;
+      float: left;
+      position: relative;
+      background: none;
+      border: none;
+      padding: 0;
+      span {
+        font-size: 14px;
+        text-align: center;
+        display: block;
+        line-height: 83px;
+        font-weight: bold;
+        color: #373737;
+      }
+    }
+    .push-right:after {
+      right: 0px;
+      top: -3px;
+      transform: none;
+      color: #373737;
+    }
+    .push-left:after {
+      left: 0px;
+      top: -3px;
+      transform: none;
+      color: #373737;
+    }
+    .gray {
+      &::after {
+        color: #ddd;
+      }
+    }
+    div {
+      width: 60%;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      input {
+        text-align: center;
+      }
+    }
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 10px 0;
+    padding: 15px 30px;
+}
+.fileUpload span {
+    font-size: 15px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+input[disabled="disabled"] {
+    width: 100%;
+    height: 35px;
+    -webkit-appearance: none;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    line-height: 21px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    color: #000;
+    border-radius: 3px;
+    outline: none;
+}
+.days-of-week {
+  display: inline-block;
+  padding: 0 10px;
+  margin: 20px auto 18px auto;
+  li {
+    float: left;
+    height: 36px;
+    width: 36px;
+    margin: 0 3px 0 0;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 24px;
+    border: solid 2px rgb(50, 50, 50);
+    color: rgb(50, 50, 50);
+  }
+  li:last-child {
+    margin: 0;
+  }
+  .active {
+    background: rgb(50, 50, 50);
+    opacity: 1;
+    color: #fff;
+  }
+}
+.zone-photos {
+  position: absolute;
+  top: 65px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  background: #000;
+  #zone-image {
+    margin: 0 0 20px 0;
+  }
+}
+#general-inspection {
+  .section {
+    border-bottom: solid 1px #ccc;
+    background: none;
+    .section-title {
+      margin: 20px 0 0 15px;
+      font-weight: normal;
+      color: #505050;
+      font-size: 18px;
+      display: block;
+    }
+    ul {
+      padding: 0 15px;
+      li {
+        list-style: none;
+        font-size: 14px;
+        margin: 0 0 5px 0;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+#program-inspection {
+  .section {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    .section-title {
+      margin: 10px 15px 0 15px;
+      font-weight: normal;
+      color: #505050;
+      font-size: 13px;
+      display: block;
+      .program-title {
+        font-weight: bold;
+        color: #fff;
+        float: left;
+      }
+      .program-details {
+        float:right;
+        color: #fff;
+        font-weight: bold;
+      }
+    }
+    .time-of-day {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      margin: 15px 0 0 0;
+    }
+    .section-content {
+      text-align: center;
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #303030;
+      font-weight: bold;
+    }
+    ul {
+      padding: 0 15px;
+      li {
+        list-style: none;
+        font-size: 14px;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+#omit-inspection {
+  .section {
+    border-bottom: solid 1px #ccc;
+    background: none;
+    text-align: center;
+    .section-title {
+      margin: 10px 15px 0 15px;
+      font-weight: normal;
+      color: #505050;
+      font-weight: bold;
+      font-size: 13px;
+      display: block;
+      .omit-title {
+        font-weight: bold;
+      }
+      .program-details {
+        float:right;
+        color: #303030;
+        font-weight: bold;
+      }
+    }
+    .time-of-day {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      margin: 15px 0 0 0;
+    }
+    .section-content {
+      text-align: center;
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #303030;
+      font-weight: bold;
+      .section-list {
+        text-align: center;
+        padding: 10px 0 0 0;
+        font-weight: normal;
+      }
+    }
+    ul {
+      padding: 0 15px;
+      li {
+        list-style: none;
+        font-size: 14px;
+        margin: 0 3px 15px 0;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .section.new {
+    background: #428bca;
+    display: inline-block;
+    width: 100%;
+    .section-title {
+      color: #fff;
+    }
+  }
+}
+
+#seasonal-inspection {
+  .section {
+    display: inline-block;
+    padding: 20px 20px 0 20px;
+    width: 100%;
+    background: none;
+    .section-title {
+      margin: 0;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 15px;
+      border: solid 1px #323232;
+      background: #323232;
+      color: #fff;
+      display: block;
+      .omit-title {
+        font-weight: bold;
+      }
+      .program-details {
+        float:right;
+        color: #303030;
+        font-weight: bold;
+      }
+    }
+    .time-of-day {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      margin: 15px 0 0 0;
+    }
+    .section-content {
+      text-align: center;
+      margin: 0 0 30px 0;
+      padding: 0;
+      display:inline-block;
+      width: 100%;
+      font-size: 16px;
+      color: #303030;
+      font-weight: bold;
+      .section-list {
+        text-align: left;
+        padding: 5px 0;
+        margin: 0;
+        float: left;
+        width: 50%;
+        color: #fff;
+        box-sizing: border-box;
+        font-weight: normal;
+        .seasonal-program {
+          display: block;
+          text-align: center;
+        }
+        .seasonal-percentage {
+          display:block;
+          text-align: center;
+          font-weight: normal;
+        }
+      }
+      .program-a {
+        border: solid 2px #323232;
+        border-top: none;
+        border-right: none;
+      }
+      .section-list:nth-child(1){
+        background: #FFA500;
+      }
+      .section-list:nth-child(2){
+        background: #aa6708;
+        border-right: solid 2px #323232;
+      }
+      .section-list:nth-child(3){
+        background: #3c763d;
+      }
+      .section-list:nth-child(4){
+        background: #428bca;
+        border-right: solid 2px #323232;
+      }
+      .program-b {
+        border: solid 2px #323232;
+        border-top: none;
+        border-left: none;
+      }
+      .program-c {
+        border: solid 1px #ccc;
+        border-top: none;
+      }
+      .program-d {
+        border: solid 1px #ccc;
+        border-top: none;
+        border-left: none;
+      }
+    }
+    ul {
+      padding: 0 15px;
+      li {
+        list-style: none;
+        font-size: 14px;
+        margin: 0 0 5px 0;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+
+
+.radio-button {
+  float: left;
+  margin: 10px 0 0 0;
+}
+.radio-button input {
+  margin: 0 5px 0 0;
+}
+.same-line {
+  width: 100%;
+  display: inline-block;
+}
+.pull-indicator {
+  margin: 0;
+}
+.programming .pull-indicator {
+  display: none;
+}
+.programming .weathermatic-page-bottom {
+  margin-bottom: 280px;
+}
+.menu-option {
+    background: none;
+    border: none;
+    float: right;
+    margin: 22px 10px 0 0;
+    padding: 0;
+    font-size: 21px;
+    cursor: pointer;
+    z-index: 20;
+    position: relative;
+    color: #fff;
+}
+button.full-screen-image {
+    position: absolute;
+    bottom: 40px;
+    right: 16px;
+    background: none;
+    padding: 10px;
+}
+.needs-send-message .table-view-cell > a:not(.btn) {
+  padding: 11px 48px 11px 15px;
+}
+.card .table-view-cell > a:not(.btn) {
+  padding: 11px 28px 11px 15px;
+}
+button.full-screen-image i {
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: #fff;
+    font-size: 23px;
+    text-shadow: 1px 1px 1px #000;
+}
+.statusBar {
+  height: 50px;
+  text-align: center;
+  color:#fff !important;
+  font-size:13px;
+  line-height: 62px;
+  background:#4cd964;
+  display:none;
+}
+.statusBar div {
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.5;
+}
+.zones a {
+  display:block;
+  color:#000
+}
+@-webkit-keyframes pulsate {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+.custom-file-input {
+  color: transparent;
+  visibility: hidden;
+  width: 85px !important;
+  position: relative;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.content-padded {
+  margin: 15px 10px;
+}
+.custom-file-input::before {
+  content: 'Select File';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  visibility: visible;
+  position: absolute;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.spaced-icon {
+  min-width: 25px;
+  text-align: center;
+}
+
+.fault-row {
+  min-height: 50px;
+  font-size: 0.8em;
+}
+
+.high-contrast {
+  padding-top: 15px;
+  height: 3.5em;
+  a {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+}
+
+.weathermatic-controller-details-faults {
+  .btn {
+    display: block;
+    margin-top: 0.3em;
+    width: 100%;
+  }
+}
+
+.warning-message {
+  border: 1px dashed red;
+  text-align: center;
+  background: #FFE9E9;
+  margin-bottom: 0.5em;
+  p {
+    padding-top: 1.0em;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    font-weight: bold;
+    color: #690000;
+  }
+}
+
+.location-badge {
+  background-color: #2191CC;
+  color: #fff;
+}
+
+.controller-count-badge {
+  background-color: #106AA5;
+  color: #fff;
+}
+
+.weathermatic-select-program-call-to-action {
+  color: #101010 !important;
+}
+
+.weathermatic-select-program {
+  font-weight: bold;
+  padding: 20px 65px 5px 15px;
+
+  a {
+    &.navigate-right:after, &.push-right:after {
+      color: #fff !important;
+    }
+  }
+}
+
+.weathermatic-select-program-row {
+  cursor: pointer;
+}
+
+.weathermatic-select-program-a {
+  background-color: $program-a-color;
+  border-color: $program-a-color;
+  color: #fff !important;
+}
+
+.weathermatic-select-program-b {
+  background-color: $program-b-color;
+  border-color: $program-b-color;
+  color: #fff !important;
+}
+
+.weathermatic-select-program-c {
+  background-color: $program-c-color;
+  border-color: $program-c-color;
+  color: #fff !important;
+}
+
+.weathermatic-select-program-d {
+  background-color: $program-d-color;
+  border-color: $program-d-color;
+  color: #fff !important;
+}
+
+.weathermatic-program-description {
+  color: #fff;
+}
+
+.weathermatic-run-program-description {
+  color: #fff;
+  white-space: normal;
+  margin: 0 1em;
+}
+
+.weathermatic-btn-run-program {
+  border-radius: 0;
+
+  &.weathermatic-btn-run-program-a {
+    color: #fff !important;
+    border-color: $program-a-color !important;
+    background-color: $program-a-color !important;
+  }
+
+  &.weathermatic-btn-run-program-b {
+    color: #fff !important;
+    border-color: $program-b-color !important;
+    background-color: $program-b-color !important;
+  }
+
+  &.weathermatic-btn-run-program-c {
+    color: #fff !important;
+    border-color: $program-c-color !important;
+    background-color: $program-c-color !important;
+  }
+
+  &.weathermatic-btn-run-program-d {
+    color: #fff !important;
+    border-color: $program-d-color !important;
+    background-color: $program-d-color !important;
+  }
+}
+
+.weathermatic-loading-message {
+  margin: 100px auto;
+
+  h2 {
+    margin-bottom: 1em;
+  }
+}
+
+.weathermatic-select-edit-program {
+  li.table-view-cell {
+    min-height: 90px;
+  }
+}
+
+.weathermatic-run-zone-select-run-time {
+  select {
+    width: 3.5em;
+    height: 3em;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.weathermatic-zone-used {
+  margin-right: -2.7em;
+  button {
+    margin: 11px 0;
+    width: 75px;
+    color: #666;
+    height: auto;
+    min-height: 44px;
+  }
+}
+
+.weathermatic-settings-input-small {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 75px;
+    color: #000 !important;
+  }
+}
+
+.weathermatic-settings-input-medium {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 90px;
+    color: #000 !important;
+  }
+}
+
+.weathermatic-settings-input-medium-2 {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 120px;
+    color: #000 !important;
+  }
+}
+
+.weathermatic-settings-input-large {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 170px;
+    color: #000 !important;
+  }
+}
+
+.weathermatic-settings-input-time {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 55px;
+  }
+}
+
+.weathermatic-zone-available {
+  select {
+    margin: 11px 0;
+  }
+}
+
+.weathermatic-settings-date {
+  input {
+    width: 170px;
+    margin-right: -2.7em;
+  }
+}
+
+.weathermatic-disabled-label {
+  color: lightgray;
+}
+
+.weathermatic-save-success {
+  color: $positive-color;
+}
+
+.weathermatic-loading-message-text {
+  margin-top: 1em;
+}
+
+.weathermatic-loading-mesage-dismiss {
+  margin-top: 2em;
+}
+
+.weathermatic-manual-run-success {
+  margin: 150px auto;
+  color: $positive-color;
+}
+
+.weathermatic-smartlink-controller-loading {
+  height: 2.9em;
+  margin-top: -1.2em;
+}
+
+.hidden {
+  display: none;
+}
+
+.weathermatic-search-not-found-term {
+  margin-top: 0.3em;
+  color: #777;
+}
+
+.edit-labels .weathermatic-edit-zone p {
+  margin: 10px 0;
+  text-align: left;
+}
+
+.weathermatic-sites-search {
+  input[type=search] {
+    margin-top: 10px;
+  }
+}
+
+.weathermatic-header {
+  color: #fff;
+  height: 65px;
+
+  &.bar {
+    border-bottom: none;
+  }
+
+  .weathermatic-logo {
+    margin-top: 20px;
+    width: 180px;
+  }
+
+  ._weathermatic-header-icon {
+    width: 45px;
+    height: 45px;
+    padding-top: 0;
+    font-size: 24px;
+    line-height: 45px;
+    text-align: center;
+    color: #fff;
+    // background-color: #fff;
+    // border: 1px solid #ddd;
+    // border-radius: 25px;
+  }
+
+  a.icon {
+    @extend ._weathermatic-header-icon;
+    margin: 10px 5px;
+  }
+
+  span.icon {
+    @extend ._weathermatic-header-icon;
+    margin: 7px 5px;
+  }
+
+  .weathermatic-logo-container {
+    position: absolute;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0 -10px;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 44px;
+    color: #000;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  h1.title {
+      color: inherit!important;
+      margin-top: 10px;
+      padding: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      display: block;
+      width: 70%;
+      position: absolute;
+      left: 50%;
+      margin-left: -35%;
+    i {
+      margin: 0 10px 0 0;
+    }
+  }
+
+  &.weathermatic-left-nav-only {
+    h1.title {
+    }
+  }
+}
+
+.background-area {
+    background-image: url(images/weathermatic-logo.png);
+    background-size: auto 30%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 9px;
+    left: 0px;
+    right: 0;
+    opacity: 0.1;
+    bottom: 0px;
+}
+
+.controllers {
+  padding-top: 65px !important;
+}
+
+
+#login-form {
+  margin-top: 3em;
+}
+
+.login-help {
+  margin-top: 1em;
+}
+
+.errors {
+  color: #fff;
+  background-color: #c9302c;
+  border: 1px solid #d9534f;
+  border-radius: 3px;
+  padding: 0.5em;
+
+  .messages {
+    color: inherit;
+  }
+}
+
+.vertical-middle {
+  margin-top: 60%;
+}
+
+.weathermatic-instruction-icon {
+  margin-right: 12px;
+  display: inline;
+  width: 30x;
+}
+
+.weathermatic-disabled {
+  color: #999;
+}
+
+.weathermatic-badge-warning {
+  color: #fff;
+  background-color: $warning-color;
+}
+
+.walk-site-nav-container {
+  margin-top: 15px;
+}
+
+$walk-site-zone-nav-border-color: #ddd;
+
+.walk-site-zone-nav {
+  position: absolute;
+  top: 0;
+  padding: 0px;
+  margin: 0px;
+  height: 200px;
+  width: 60px;
+  background-color: #33b5e5;
+  border-top: 1px solid $walk-site-zone-nav-border-color;
+  border-bottom: 1px solid $walk-site-zone-nav-border-color;
+  z-index: 15;
+
+  .icon {
+    color: #fff;
+  }
+}
+
+.walk-site-next-zone {
+  @extend .walk-site-zone-nav;
+  right: 0px;
+  border-radius: 3px 0px 0px 3px;
+  border-left: 1px solid $walk-site-zone-nav-border-color;
+  border-right: none;
+
+  .icon {
+    padding-left: 7px;
+  }
+}
+
+.walk-site-prev-zone {
+  @extend .walk-site-zone-nav;
+  left: 0px;
+  border-radius: 0px 3px 3px 0px;
+  border-left: none;
+  border-right: 1px solid $walk-site-zone-nav-border-color;
+
+  .icon {
+    padding-right: 7px;
+  }
+}
+
+.walk-zone-disabled {
+  background-color: #D6D6D6;
+}
+
+.walk-site-control {
+  width: 60%;
+  height: 50px;
+}
+
+.weathermatic-error-list-item {
+  padding: 1em;
+}
+
+.weathermatic-warning-icon {
+  color: orangered;
+}
+
+.weathermatic-jump-to-zone {
+  height: 50px;
+
+  &> button {
+    height: 52px;
+    background-color: #33b5e5;
+    color: #fff;
+  }
+}
+
+.smartlink-controller-cell {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.zone-image-default {
+  margin: 0;
+  height: 100%;
+  width: auto;
+}
+.app-version {
+  bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  left: 0;
+  right: 0;
+  height: 20px;
+  color: #666;
+}
+
+.weathermatic-edit-zone {
+  padding-top:20px;
+  width:90%;
+}
+
+.weathermatic-edit-zone input::-webkit-input-placeholder {
+  color: #d9d9d9;
+}
+.zone-image button {
+  border: none;
+}
+.section.pic {
+  max-height: 150px;
+}
+#zone-thumbnail {
+    display: block;
+    margin: auto;
+    height: 100px;
+    width: 100px;
+}
+
+.start-inspection #zone-thumbnail {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    border: solid 1px #ccc;
+    box-shadow: inset 0 0 100px #000000;
+    span {
+      color: #fff;
+      text-shadow: 0px 0px 10px #000;
+      font-weight: bold;
+    }
+}
+
+form#image-uploads {
+  height: 100%;
+}
+
+.edit-label-control.upload-image-control {
+  position: absolute;
+  bottom: 0px;
+  border: none;
+  height: 50px;
+  border-radius: 25px;
+  background: none;
+  width: 50px;
+  padding: 0;
+  margin: 0;
+  right: 11px;
+}
+
+.edit-label-control .custom-file-input {
+    width: 100% !important;
+    height: 100%;
+}
+
+#zone-thumbnail,
+#zone-thumbnail-default {
+  width: 100%;
+  height: 150px;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #000;
+}
+
+.value-status {
+  font-size: 15px;
+  li {
+    margin: 0 0 10px 0;
+  }
+}
+#zone-thumbnail-default,
+.zone-default {
+  background-image: url(images/default-zone-image.jpg);
+  display: block;
+}
+
+.weathermatic-zone-configure-auto-adjust {
+  padding-top:75px;
+  width:90%;
+}
+
+#statusMessage {
+    position: absolute;
+    top: 114px;
+    background: #5cb85c;
+    color: #fff;
+    padding: 10px 0;
+    width: 100%;
+    left: 0;
+    font-weight: normal;
+    font-size: 14px;
+    z-index: 9;
+    text-align: center;
+    transform: translateY(-100%);
+    transition: all 0.2s;
+}
+
+#statusMessage.active {
+    transform: translateY(0);
+}
+
+.weathermatic-content .center-buttons {
+  text-align: right;
+  margin: 20px 0 0 0;
+  .btn {
+    padding: 15px 25px;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+  }
+}
+
+.checked {
+    position: absolute;
+    top: 16px;
+    right: 50px;
+    color: white;
+    background: green;
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.email-inspection-form .center-buttons {
+  text-align: right;
+  margin: 20px 10px 0 0;
+  .btn {
+    padding: 15px 30px;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+  }
+}
+
+.switched {
+    .positive,
+    .negative {
+      height: 35px;
+      line-height: 24px;
+      font-size: 22px;
+      text-align: center;
+      width: 30%;
+      font-weight: bold;
+      float: left;
+      color: #fff;
+      border: none;
+      padding: 0 0 4px 0;
+      font-weight: bold;
+      background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+      background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+      background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+      background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+      background-repeat: repeat-x;
+      border: 1px solid #ccc;
+    }
+    .positive {
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+        color: #5cb85c;
+    }
+    .negative {
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        color: #d9534f;
+    }
+    input {
+      float: left;
+      height: 35px;
+      width: 40% !important;
+      text-align: center;
+      margin: 0 !important;
+      border-radius: 0px;
+      border:none;
+      border-top: solid 1px #b3b3b3;
+      border-bottom: solid 1px #b3b3b3;
+      font-weight: bold;
+    }
+}
+
+.selected {
+  background: #f1f1f1 !important;
+}
+
+#start-inspection {
+  .section {
+    border-bottom: solid 1px #ccc;
+    padding: 10px 15px;
+    position: relative;
+    width: 100%;
+    background: none;
+    display: inline-block;
+    .choose-pic {
+      margin: 10px 0 0 0;
+      font-size: 12px;
+    }
+    .run-zone {
+      background: #5cb85c;
+      border:none;
+      color: #fff;
+      font-size: 14px;
+      padding: 12px 45px;
+      border-radius: 3px;
+    }
+    .form-group {
+      float: left;
+      width: 100%;
+      li {
+        list-style: none;
+        label {
+          margin: 0 0 10px 0;
+          font-weight: bold;
+          display: block;
+          font-size: 14px;
+        }
+        .btn-block {
+          width: 200px;
+          font-size: 15px;
+          margin: 0 auto 15px auto;
+        }
+        .programs {
+          padding: 10px 0 0 0;
+          div {
+            font-size: 16px;
+            width: 25%;
+            text-align: center;
+            float: left;
+            font-weight: bold;
+            span {
+              display: block;
+              padding: 10px 0;
+              font-weight: normal;
+              border-left: solid 1px #ccc;
+            }
+          }
+          .a-program {
+            span {
+              border: none;
+            }
+          }
+
+        }
+      }
+    }
+    .half {
+      float: left;
+      li {
+        width: 50%;
+        float: left;
+        box-sizing: border-box;
+        margin: 0 0 20px 0;
+      }
+      li:last-child {
+        padding: 0 0 0 10px;
+      }
+      li:first-child {
+        padding: 0 10px 0 0;
+      }
+    }
+    .half-input {
+      select {
+        //width: 40px;
+      }
+      input {
+        width: 80px;
+        margin: 0 0 0 0;
+      }
+    }
+  }
+  .run-zone-section {
+    li {
+      text-align: center;
+    }
+    label {
+      text-align: left;
+    }
+  }
+}
+.edit-inspection-form {
+  margin: 0;
+}
+.start-inspection {
+  padding: 0;
+  margin: 63px 0 0 0;
+}
+.btn-auto-adjust-menu {
+  width: 90%;
+}
+#auto-adjust-menu {
+  overflow-y:auto !important;
+  .ember-select {
+    height: 2.5em;
+    font-size: 17px;
+  }
+}
+#zone-image {
+  margin-top:60px;
+  width:100%;
+
+}
+.content > .table-view:first-child {
+    margin: 0;
+}
+.bar-nav ~ .content {
+  padding: 0;
+}
+.btn-negative.active {
+  height: auto;
+}
+.section:nth-child(1){
+  background: #FFA500;
+}
+.section:nth-child(2){
+  background: #aa6708;
+}
+.section:nth-child(3){
+  background: #3c763d;
+}
+.section:nth-child(4){
+  background: #428bca;
+}
+.weathermatic-content {
+  overflow-y: scroll !important;
+  overflow-x: hidden;
+  background: #fff;
+  top: 65px;
+  @media(min-height: 800px) {
+    height: 1100px;
+  }
+}
+
+.show-zone-image {
+  width: 100%;
+  margin-bottom:0px;
+  height:100px;
+  display: block;
+  text-align: center;
+}
+
+.btn-show-zone-image {
+  margin-bottom:0px;
+}
+
+#image-upload-input {
+  width:210px;
+}
+
+.uploading {
+    background: #000;
+    display: inline-block;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 52px;
+    left: 50%;
+    margin-left: -67px;
+}
+
+.zone-image #image-upload-inputs:before {
+    content: "";
+    background-image: url(images/camera.png);
+    background-size: 50% auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 16px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0;
+    text-shadow: none;
+}
+
+.image-uploads {
+  height: 100%;
+}
+
+.edit-label-control p {
+    background: #000;
+    border: none;
+    width: 200px;
+    text-align: center;
+    margin: 0;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: solid 1px #000;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    text-shadow: none;
+    color: #fff;
+    position: relative;
+    top: 0px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.upload-image-control:active {
+  background-color: transparent;
+}
+
+.upload-image-control {
+    height: 64px;
+    margin-bottom: 10px;
+}
+
+.edit-label-control .upload-image-control {
+    margin-bottom: 10px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+}
+
+.upload-image-title {
+  font-size:1em;
+  font-weight: 400;
+  color: #333;
+  margin-bottom:5px;
+  font-size: 18px;
+}
+
+.weathermatic-height-100-percent {
+  height: 100%;
+}
+
+// Address issue where bottom of scrolled list is not visible, see SM-49, SM-50
+.weathermatic-page-bottom {
+  margin-bottom: 50px;
+}
+
+.weathermatic-errors {
+  background-color: $error-color-background;
+  color: $error-color;
+
+  p {
+    color: #666;
+  }
+}
+
+.weathermatic-warning {
+  background-color: $warning-color;
+;
+  color: $error-color;
+
+  p {
+    color: #fff;
+  }
+}
+
+.weathermatic-input-error {
+  border-color: $error-color !important;
+  background-color: $error-color-background !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.needs-send-message-container {
+  height: auto;
+}
+
+.needs-send-message {
+  .badge {
+    margin-top: 5px;
+  }
+  .info-text {
+    margin-left: 0.5em;
+    margin-top: 4px;
+  }
+  button {
+    margin-right: -35px;
+  }
+}
+
+.toggle-row {
+  margin-right: -50px;
+  margin-top: 8px;
+  width: 165px;
+  float: right;
+
+  .toggle {
+    margin-left: 8px;
+  }
+}
+
+.zone-mv-label {
+  font-weight: bold;
+
+  .zone-mv-label-numbers {
+    float: right;
+    margin-right: -25px;
+  }
+
+  .zone-mv-label-1 {
+    margin-right: 60px;
+  }
+}
+.center-buttons {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.edit-inspection-form {
+  margin: 0;
+  padding: 15px;
+  select {
+    font:inherit; /*keep font style*/
+    /* remove border, background and inset shadow */
+    background-color:transparent;
+    box-shadow:none;
+  }
+  label {
+    display: block;
+    margin: 0 0 10px 0;
+  }
+  #date {
+    width: 50%;
+  }
+  #time {
+    width: 48%; float: right;
+  }
+
+}

@@ -1,0 +1,86 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.flow' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'programming.flow'}}</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <ul class="table-view">
+    {{#if model.smartlinkController.isVirtualFlow}}
+      <li class="table-view-cell">
+        <span>Flow Rate {{flowUnits}}</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          {{input type='number' value=gpmInLocalUnits}}
+        </span>
+        <div style="clear: both;"></div>
+      </li>
+    {{/if}}
+
+    {{#if model.smartlinkController.isRealtimeFlow}}
+      <li class="table-view-cell">
+        <span class="pull-left">Enable Shutdown</span>
+        {{toggle-input value=model.realtimeFlowEnabled}}
+      </li>
+
+      <li class="table-view-cell">
+        <span>
+         Low Flow Limit
+        </span>
+        <span class="pull-right weathermatic-settings-input-medium-2">
+          <select onchange={{action (mut model.lowFlowLimit) value="target.value"}}
+            disabled={{model.realtimeFlowDisabled}}>
+            {{#each availableLowFlowValues as |flow|}}
+              <option value={{flow.value}}
+                selected={{equiv flow.value model.lowFlowLimit}}
+                disabled={{flow.isDisabled}}>{{flow.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+        <div style="clear: both;"></div>
+      </li>
+      <li class="table-view-cell">
+        <span>
+          High Flow Limit
+        </span>
+        <span class="pull-right weathermatic-settings-input-medium-2">
+          <select onchange={{action (mut model.highFlowLimit) value="target.value"}}
+            disabled={{model.realtimeFlowDisabled}}>
+            {{#each availableHighFlowValues as |flow|}}
+              <option value={{flow.value}}
+                selected={{equiv flow.value model.highFlowLimit}}
+                disabled={{flow.isDisabled}}>{{flow.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+        <div style="clear: both;"></div>
+      </li>
+    {{/if}}
+    <li class="table-view-cell">
+      <span class="pull-left">{{t 'inspectionDetails.valveSize'}}</span>
+      <span class="pull-right weathermatic-settings-input-medium-2">
+        <select onchange={{action (mut model.valveSize) value="target.value"}}>
+          {{#each availableValveSizes as |size|}}
+            <option value={{size.value}}
+              selected={{equiv size.value model.valveSize}}>{{size.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+      <div style="clear: both;"></div>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} {{t 'common.save'}}
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

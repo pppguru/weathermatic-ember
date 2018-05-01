@@ -1,0 +1,117 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.index' model class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'basicSettings.subTitle'}}</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
+  <ul class="table-view">
+    <li class="table-view-cell">
+      <span>{{t 'basicSettings.date'}}</span>
+      <span class="pull-right weathermatic-settings-date">
+        {{input type='date' value=deviceTimeDate}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'basicSettings.time'}}</span>
+      <span class="pull-right weathermatic-settings-input-time">
+        <select onchange={{action (mut deviceTimeHours) value="target.value"}}>
+          {{#each availableHours as |hour|}}
+            <option value={{hour.value}}
+              selected={{equiv hour.value deviceTimeHours}}>{{hour.value}}</option>
+          {{/each}}
+        </select> :
+
+        <select onchange={{action (mut deviceTimeMinute) value="target.value"}}>
+          {{#each availableMinutes as |min|}}
+            <option value={{min.value}}
+              selected={{equiv min.value deviceTimeMinutes}}>{{min.value}}</option>
+          {{/each}}
+        </select> :
+
+        <select onchange={{action (mut deviceTimeAmPm) value="target.value"}}>
+          {{#each availableAmPm as |amPm|}}
+            <option value={{amPm.value}}
+              selected={{equiv amPm.value deviceTimeAmPm}}>{{amPm.label}}</option>
+          {{/each}}
+        </select> :
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'basicSettings.timeZone'}}</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.timezone) value="target.value"}}>
+          {{#each availableTimezones as |zone|}}
+            <option value={{zone.value}}
+              selected={{equiv zone.value model.timezone}}>{{zone.value}}</option>
+          {{/each}}
+        </select> :
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'basicSettings.runStatus'}}</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.runStatus) value="target.value"}}>
+          {{#each availableRunStatuses as |status|}}
+            {{#if (eq status.label "Run")}}
+              <option value={{status.value}}
+                selected={{equiv status.value model.runStatus}}
+                disabled={{status.disabled}}>{{t 'basicSettings.runStatus1'}}</option>
+            {{else}}
+              <option value={{status.value}}
+                selected={{equiv status.value model.runStatus}}
+                disabled={{status.disabled}}>{{status.label}}</option>
+            {{/if}}
+          {{/each}}
+        </select> :
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'basicSettings.waterMode'}}</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.wateringMode) value="target.value"}}>
+          {{#each availableWateringModes as |mode|}}
+            {{#if (eq mode.label "Basic (Standard)")}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.wateringMode}}>{{t 'basicSettings.waterMode1'}}</option>
+            {{else}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.wateringMode}}>{{t 'basicSettings.waterMode2'}}</option>
+            {{/if}}
+          {{/each}}
+        </select> :
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>{{t 'basicSettings.rainMode'}}</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        <select onchange={{action (mut model.rainFreezeSensorMode) value="target.value"}}>
+          {{#each availableRainFreeze as |mode|}}
+            {{#if (eq mode.label "Active")}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.rainFreezeSensorMode}}>{{t 'controllerOptions.rainStatusActive'}}</option>
+            {{else}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.rainFreezeSensorMode}}>{{t 'controllerOptions.rainStatusBypass'}}</option>
+            {{/if}}
+          {{/each}}
+        </select> :
+      </span>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} {{t 'common.save'}}
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

@@ -1,0 +1,57 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.select-valves' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">
+    {{fa-icon 'signal'}} {{short-text model.smartlinkController.name size=15}} - {{t 'controllerOptions.locateValve'}}
+  </h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{t 'confirmZone.subTitle'}}
+    </li>
+    <li class="table-view-cell">
+      {{t 'common.site'}} <button class="btn"> {{fa-icon 'building'}}
+        {{model.smartlinkController.site.name}}</button>
+    </li>
+    <li class="table-view-cell">
+      {{t 'common.controller'}} <button class="btn"> {{fa-icon 'signal'}}
+        {{model.smartlinkController.name}}</button>
+    </li>
+  </ul>
+
+  <div class="content-padded weathermatic-height-100-percent">
+    <p>{{t 'confirmValue.controllerPrompt'}}</p>
+
+    <span class="btn btn-block">
+      {{#if model.description}}
+        <h3>{{fa-icon 'leaf'}} {{short-text model.description size=20}}</h3>
+        <p>{{t 'common.zone'}} {{model.number}}</p>
+      {{else}}
+        <h3>{{fa-icon 'leaf'}} {{t 'common.locateZone'}} {{model.number}}</h3>
+      {{/if}}
+    </span>
+
+    <p>{{t 'common.buttonPrompt'}}</p>
+
+    <div class="warning-message">
+      <p>{{t 'confirmValue.valvePrompt'}}</p>
+    </div>
+
+    <button class="btn btn-block btn-positive" {{action 'locateValves'}}>
+      {{fa-icon 'check'}} {{t 'common.go'}}
+    </button>
+
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
+      {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
+    {{/link-to}}
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

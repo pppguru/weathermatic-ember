@@ -1,0 +1,17 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'programming.flow'}}</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <ul class="table-view weathermatic-page-bottom">
+    {{#each model.zones as |zone|}}
+      {{flow-details zone=zone}}
+    {{/each}}
+  </ul>
+</div>

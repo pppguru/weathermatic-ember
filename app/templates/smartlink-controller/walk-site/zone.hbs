@@ -1,0 +1,244 @@
+{{#liquid-bind model use=transition as |model|}}
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text smartlinkController.name size=10}} - {{t 'walkSite.subTitle'}}</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'male'}} {{t 'walkSite.subTitle'}}
+    </li>
+    <li class="table-view-cell">
+      {{t 'common.site'}} <button class="btn"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
+    </li>
+    <li class="table-view-cell">
+      {{t 'common.controller'}} <button class="btn"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
+    </li>
+  </ul>
+
+  <div class="content-padded">
+    <span class="btn btn-block">
+      {{#if model.description}}
+        <h3>
+          {{fa-icon 'male'}} {{short-text model.description size=20}}
+        </h3>
+        <p>{{t 'common.zone'}} {{model.number}}</p>
+      {{else}}
+        <h3>
+          {{fa-icon 'male'}} {{t 'common.zone'}} {{model.number}}
+        </h3>
+      {{/if}}
+    </span>
+  </div>
+
+  {{#if model.photo}}
+    <span class="content-padded show-zone-image">
+      <button id="zone-thumbnail" style="background-image: url({{model.photoThumbnail}});width:100px;height:100px;background-size:100% 100%;position: relative;" {{action 'openZoneImageView'}}></button>
+    </span>
+  {{/if}}
+
+  <div class="content-padded weathermatic-jump-to-zone">
+    <button class="btn btn-block" {{action 'openJumpToZone'}}>
+      {{fa-icon 'leaf'}} {{t 'walkSite.zoneButton'}}
+    </button>
+  </div>
+
+  <div class="walk-site-nav-container">
+    <center class="walk-site-controls">
+      <button class="btn btn-block btn-positive walk-site-control" {{action 'start'}}>
+        {{fa-icon 'play'}} {{t 'walkSite.startButton'}}
+      </button>
+
+      <button class="btn btn-block btn-negative walk-site-control" {{action 'stop'}}>
+        {{fa-icon 'stop'}} {{t 'walkSite.stopButton'}}
+      </button>
+
+      <button class="btn btn-block btn-auto-adjust walk-site-control" {{action 'openAutoAdjust'}}>
+        {{t 'walkSite.configure'}}
+      </button>
+
+      <a class="btn walk-site-control upload-image-control">
+        {{#if isLoading}}
+          <p>{{fa-icon 'circle-o-notch fa-spin'}} Uploading...</p>
+        {{else}}
+          <p class="upload-image-title">{{t 'walkSite.zonePhoto'}}:</p>
+        {{/if}}
+          <form id="image-upload" enctype="multipart/form-data" method="POST">
+            <input id="image-upload-input" class="align-center custom-file-input" type="file" name="photo" />
+          </form>
+      </a>
+    </center>
+
+    {{#if isPreviousZoneAvailable}}
+      <button class="walk-site-prev-zone" {{action 'goToPreviousZone'}}>
+        <span class="icon icon-left-nav"></span>
+      </button>
+    {{else}}
+      <button class="walk-site-prev-zone walk-zone-disabled">
+        <span class="icon icon-left-nav"></span>
+      </button>
+    {{/if}}
+
+    {{#if isNextZoneAvailable}}
+      <button class="walk-site-next-zone" {{action 'goToNextZone'}}>
+        <span class="icon icon-right-nav"></span>
+      </button>
+    {{else}}
+      <button class="walk-site-next-zone walk-zone-disabled">
+        <span class="icon icon-right-nav"></span>
+      </button>
+    {{/if}}
+  </div>
+</div>
+{{/liquid-bind}}
+
+<div id="options-menu" class="modal {{if isOptionsMenuOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
+    <h1 class="title">{{fa-icon 'gear'}} {{t 'menu.advance.title'}}</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" {{action 'openCommLog'}}>
+          <div class="media-body">
+            <h2>{{fa-icon 'list'}} {{t 'menu.advance.commLogButton'}}</h2>
+            <p>{{t 'menu.advance.commLogMessage'}}</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="content-padded">
+      <button class="btn btn-negative btn-block" {{action 'closeOptionsMenu'}}>
+        {{fa-icon 'times-circle'}} {{t 'common.close'}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="auto-adjust-menu" class="modal {{if isAutoAdjustMenuOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeAutoAdjust'}}></a>
+    <h1 class="title">{{fa-icon 'gear'}} Auto Adjust Settings</h1>
+  </header>
+
+  <center>
+    <form class="weathermatic-zone-configure-auto-adjust">
+      <p>Zone Name:</p>
+      <center>
+        {{input value=model.description}}
+      </center>
+
+      <p>Sprinkler Type:</p>
+      <center>
+        <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
+          {{#each availableSprinklerTypes as |sprinklerType|}}
+            <option value="{{sprinklerType.value}}"
+              selected={{equiv sprinklerType.value model.sprinklerType}}>{{sprinklerType.label}}</option>
+          {{/each}}
+        </select>
+      </center>
+
+      <p>Plant Type:</p>
+      <center>
+        <select onchange={{action (mut model.plantType) value="target.value"}}>
+          {{#each availablePlantTypes as |plantType|}}
+            <option value="{{plantType.value}}"
+              selected={{equiv plantType.value model.plantType}}>{{plantType.label}}</option>
+          {{/each}}
+        </select>
+      </center>
+
+      <p>Soil Type:</p>
+      <center>
+        <select onchange={{action (mut model.soilType) value="target.value"}}>
+          {{#each availableSoilTypes as |soilType|}}
+            <option value={{soilType.value}}
+              selected={{equiv soilType.value model.soilType}}>{{soilType.label}}</option>
+          {{/each}}
+        </select>
+      </center>
+
+      <p>Soil Slope:</p>
+      <center>
+        <select onchange={{action (mut model.soilSlope) value="target.value"}}>
+          {{#each availableSoilSlopes as |soilSlope|}}
+          <option value="{{soilSlope.value}}"
+            selected={{equiv soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
+          {{/each}}
+        </select>
+      </center>
+
+      <p>More/Less:</p>
+      <center>
+        {{!-- view 'select' content=availableMoreLess value=model.adjustment
+          optionLabelPath='content.label' optionValuePath='content.value' --}}
+        <select onchange={{action (mut model.adjustment) value="target.value"}}>
+          {{#each availableMoreLess as |moreLess|}}
+          <option value="{{moreLess.value}}"
+            selected={{equiv moreLess.value model.adjustment}}>{{moreLess.label}}</option>
+          {{/each}}
+        </select>
+      </center>
+    </form>
+
+    <div class="content-padded">
+      <button class="btn btn-positive btn-block btn-auto-adjust-menu" {{action 'saveAutoAdjust'}}>
+        Save
+      </button>
+      <button class="btn btn-negative btn-block btn-auto-adjust-menu" {{action 'closeAutoAdjust'}}>
+        Cancel
+      </button>
+    </div>
+  </center>
+</div>
+
+<div id="zone-image-view" class="modal {{if isZoneImageViewOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
+    <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
+  </header>
+
+  <img id="zone-image" src={{model.photo}} />
+</div>
+
+<div id="jump-to-zone" class="modal {{if isJumpToZoneOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeJumpToZone'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} {{t 'walkSite.zoneButton'}}</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view weathermatic-page-bottom">
+      {{#each model.smartlinkController.activeZones as |zone|}}
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right" {{action 'jumpToZone' zone}}>
+            <div class="media-body">
+              {{#if zone.description}}
+                {{short-text zone.description size=30}}
+                <p>{{t 'common.zone'}} {{zone.number}}</p>
+              {{else}}
+                {{t 'common.zone'}} {{zone.number}}
+                <p>&nbsp;</p>
+              {{/if}}
+            </div>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
+
+{{comm-log smartlinkController=model.smartlinkController close='commLogClosed' actionReceiver=commLog}}

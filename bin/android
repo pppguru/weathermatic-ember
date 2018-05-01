@@ -1,0 +1,124 @@
+#!/bin/bash
+set -e
+
+############################################
+#  Optional environment variables
+# NO_VER        set to skip incrementing the build version number
+# EMBER_ENV     set to 'development', 'staging', etc, defaults to 'production'?
+############################################
+
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+CORDOVA_DIR=$DIR/../cordova
+APP_VERSION=$(($(cat $CORDOVA_DIR/android-last-build-version) + 1))
+ANDROID_PROJECT_DIR=$CORDOVA_DIR/platforms/android
+#Getting latest android build tools version
+ANDROID_BUILD_TOOLS_DIRECTORY=$(ls -td $ANDROID_HOME/build-tools/*/ | head -1)
+KEYSTORE=$DIR/../smartlink.keystore
+KEYSTORE_PASSWORD="Savewatern0w1"
+KEY_ALIAS="smartlinkmobile"
+KEY_PASSWORD="Savewatern0w1"
+ZIPALIGN_BINARY=$ANDROID_BUILD_TOOLS_DIRECTORY/zipalign
+UNSIGNED_APK_FILE=$ANDROID_PROJECT_DIR/build/outputs/apk/android-release-unsigned.apk
+FINAL_APK_FILE=$DIR/../smartlink-android.apk
+
+if [ -f $FINAL_APK_FILE ]; then
+  echo "Removing old .apk file at $FINAL_APK_FILE"
+  rm $FINAL_APK_FILE
+fi
+
+if [ ! -f $KEYSTORE ]; then
+  echo "Cannot find keystore file at $KEYSTORE"
+  echo "To generate a new keystore, use:"
+  echo ""
+  echo "  keytool -genkey -v \\"
+  echo "    -keystore $KEYSTORE \\"
+  echo "    -alias $KEY_ALIAS \\"
+  echo "    -keyalg RSA \\"
+  echo "    -keysize 2048 \\"
+  echo "    -validity 10000"
+  echo ""
+
+  exit
+fi
+
+function msg {
+  echo -e "============================================"
+  echo -e "$1"
+  echo -e "============================================"
+}
+
+msg "Removing old android project"
+ember cordova platform remove android
+
+msg "Adding android platform"
+ember cordova platform add android
+
+msg "Adding plugins"
+source  $DIR/install_plugins
+
+msg "Copying image files"
+
+SIZES="hdpi ldpi mdpi xhdpi"
+
+for SIZE in $SIZES; do
+  echo "SIZE: $SIZE"
+  rm -f $ANDROID_PROJECT_DIR/res/drawable-$SIZE/{icon.png,screen.png}
+  rm -f $ANDROID_PROJECT_DIR/res/drawable-port-$SIZE/{icon.png,screen.png}
+  rm -f $ANDROID_PROJECT_DIR/res/drawable-land-$SIZE/{icon.png,screen.png}
+
+  # Icon
+  # Create the directory if it doesn't exist
+  mkdir -p $ANDROID_PROJECT_DIR/res/drawable-$SIZE
+  cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $ANDROID_PROJECT_DIR/res/drawable-$SIZE/icon.png
+
+  # Splash images
+  SRC_FILE=$CORDOVA_DIR/res/android/splash_images/splash_$SIZE.png
+  if [ -e $SRC_FILE ]; then
+    cp $SRC_FILE $ANDROID_PROJECT_DIR/res/drawable-$SIZE
+  else
+    echo "No image file to copy, skipping: $SRC_FILE"
+  fi
+
+  SRC_FILE=$CORDOVA_DIR/res/android/splash_images/splash_"$SIZE"_land.png
+  if [ -e $SRC_FILE ]; then
+    cp $SRC_FILE $ANDROID_PROJECT_DIR/res/drawable-land-$SIZE
+  else
+    echo "No image file to copy, skipping: $SRC_FILE"
+  fi
+done
+
+rm -f $ANDROID_PROJECT_DIR/res/drawable/{icon.png,screen.png}
+cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $ANDROID_PROJECT_DIR/res/drawable
+
+if [ "$NO_VER" ]; then
+  msg "NO_VER was set, will not increment the build version"
+else
+  msg "Updating app version to: $APP_VERSION"
+  sed -i '.bak' "s/android-versionCode=\"[0-9]*\"/android-versionCode=\"$APP_VERSION\"/" $CORDOVA_DIR/config.xml
+  if [ "$?" -ne 0 ]; then
+   echo "Could not update app version, bailing"
+   exit 1
+  fi
+  rm $CORDOVA_DIR/config.xml.bak
+  echo $APP_VERSION > $CORDOVA_DIR/android-last-build-version
+fi
+
+msg "Building android cordova project and .apk"
+MOBILE_PLATFORM=android ember cordova:build --release --environment=${EMBER_ENV:=production} --platform=android
+
+msg "Signing apk file"
+ jarsigner -verbose \
+   -storepass $KEYSTORE_PASSWORD \
+   -keypass $KEY_PASSWORD \
+   -sigalg SHA1withRSA \
+   -digestalg SHA1 \
+   -keystore $KEYSTORE \
+   $UNSIGNED_APK_FILE \
+   $KEY_ALIAS
+
+ msg "Aligning signed apk file"
+ $ZIPALIGN_BINARY -v 4 $UNSIGNED_APK_FILE $FINAL_APK_FILE
+
+
+msg "APK file:\n\n $FINAL_APK_FILE"

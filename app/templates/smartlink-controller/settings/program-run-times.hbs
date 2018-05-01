@@ -1,0 +1,34 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.programming' model class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Select a Zone</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
+  <ul class="table-view weathermatic-page-bottom">
+    {{#each model.activeZones as |zone|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.edit-program-run-time' zone.id}}
+          {{#if zone.description}}
+            {{short-text zone.description size=20}}
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
+          {{else}}
+            {{t 'common.zone'}} {{zone.number}}
+            <p>&nbsp;</p>
+          {{/if}}
+        {{/link-to}}
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

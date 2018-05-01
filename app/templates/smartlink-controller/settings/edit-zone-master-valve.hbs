@@ -1,0 +1,52 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.edit-controller-advanced' model class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Enable/Disable Master Valve</h1>
+</header>
+
+<div class="content weathermatic-content" style="padding-bottom: 200px;">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
+  <ul class="table-view">
+    {{#if model.hasSecondMasterValve}}
+      <li class="table-view-cell table-view-divider zone-mv-label">
+        <span>Master valve</span>
+        <div class="zone-mv-label-numbers">
+          <span class="zone-mv-label-1">#1</span>
+          <span class="zone-mv-label-2">#2</span>
+        </div>
+      </li>
+    {{/if}}
+
+    {{#each model.zones as |zone|}}
+      <li class="table-view-cell">
+        {{#if model.hasSecondMasterValve}}
+          <span class="pull-left">
+            <strong>Zone {{zone.number}}</strong>
+            <br>
+            <small>{{short-text zone.description}}</small>
+          </span>
+          <div class="toggle-row">
+            {{toggle-input value=zone.mvEnabled class="pull-left"}}
+            {{toggle-input value=zone.mv2Enabled class="pull-right"}}
+          </div>
+        {{else}}
+          <span class="pull-left">
+            <strong>Zone {{zone.number}}</strong>
+            <br>
+            <small>{{text-or-space zone.description}}</small>
+          </span>
+          {{toggle-input value=zone.mvEnabled class="pull-left"}}
+        {{/if}}
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

@@ -1,0 +1,265 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.index' model class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Advanced Settings</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
+  <ul class="table-view">
+    <li class="table-view-cell">
+      <span>Number of Starts</span>
+      <span class="pull-right weathermatic-settings-input-medium">
+        <select onchange={{action (mut model.numStarts) value="target.value"}}>
+          {{#each availableNumberOfStarts as |num|}}
+            <option value={{num}} selected={{equiv num model.numStarts}}>{{num}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>SLW Delay</span>
+      <span class="pull-right weathermatic-settings-input-medium">
+        <select onchange={{action (mut model.slwDelay) value="target.value"}}>
+          {{#each availableSlwDelayHours as |delay|}}
+            <option value={{delay.value}}
+              selected={{equiv delay.value model.slwDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Rain Delay</span>
+      <span class="pull-right weathermatic-settings-input-medium">
+        <select onchange={{action (mut model.rainDelay) value="target.value"}}>
+          {{#each availableRainDelayDays as |delay|}}
+            <option value={{delay.value}}
+              selected={{equiv delay.value model.rainDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Zone-to-zone Delay</span>
+      <span class="pull-right weathermatic-settings-input-medium">
+        <select onchange={{action (mut model.interzoneDelay) value="target.value"}}>
+          {{#each availableZoneToZoneDelay as |delay|}}
+            <option value={{delay.value}}
+              selected={{equiv delay.value model.interzoneDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+
+    {{#if model.isNormallyClosedMasterValve}}
+      <li class="table-view-cell">
+        <span>Master Valve/Zone-on Delay</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          <select onchange={{action (mut model.mvZoneOnDelay) value="target.value"}}>
+            {{#each availableMasterValveZoneOnDelay as |delay|}}
+              <option value={{delay.value}}
+                selected={{equiv delay.value model.mvZoneOnDelay}}>{{delay.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+      <li class="table-view-cell">
+        <span>Master Valve/Zone-off Delay</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          <select onchange={{action (mut model.mvZoneOffDelay) value="target.value"}}>
+            {{#each availableMasterValveZoneOffDelay as |delay|}}
+              <option value={{delay.value}}
+                selected={{equiv delay.value model.mvZoneOffDelay}}>{{delay.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+    {{/if}}
+
+    {{#if model.hasSecondMasterValve}}
+      {{#if model.isNormallyClosedMasterValve2}}
+        <li class="table-view-cell">
+          <span>Master Valve 2 / Zone-on Delay</span>
+          <span class="pull-right weathermatic-settings-input-medium">
+            <select onchange={{action (mut model.mv2ZoneOnDelay) value="target.value"}}>
+              {{#each availableMasterValveZoneOffDelay as |delay|}}
+                <option value={{delay.value}}
+                  selected={{equiv delay.value model.mv2ZoneOnDelay}}>{{delay.label}}</option>
+              {{/each}}
+            </select>
+          </span>
+        </li>
+        <li class="table-view-cell">
+          <span>Master Valve 2 / Zone-off Delay</span>
+          <span class="pull-right weathermatic-settings-input-medium">
+            <select onchange={{action (mut model.mv2ZoneOffDelay) value="target.value"}}>
+              {{#each availableMasterValveZoneOffDelay as |delay|}}
+                <option value={{delay.value}}
+                  selected={{equiv delay.value model.mv2ZoneOffDelay}}>{{delay.label}}</option>
+              {{/each}}
+            </select>
+          </span>
+        </li>
+      {{/if}}
+
+      <li class="table-view-cell">
+        <span>Max Concurrent Programs</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          <select onchange={{action (mut model.maxConcurrentPrograms) value="target.value"}}>
+            {{#each availableMaxConcurrentProgramgs as |num|}}
+              <option value={{num}}
+                selected={{equiv num model.maxConcurrentPrograms}}>{{num}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+    {{/if}}
+
+    <li class="table-view-cell">
+      <span>Minimum Deficit</span>
+      <span class="pull-right weathermatic-settings-input-medium">
+        <select onchange={{action (mut model.minDeficit) value="target.value"}}>
+          {{#each availableMinDeficit as |item|}}
+            <option value={{item.value}}
+              selected={{equiv item.value model.minDeficit}}>{{item.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Automatically Set Time</span>
+      {{toggle-input value=model.autoSetTime}}
+    </li>
+    <li class="table-view-cell">
+      <span>DST Enabled</span>
+      {{toggle-input value=model.dstEnabled}}
+    </li>
+    {{#if model.dstEnabled}}
+      <li class="table-view-cell">
+        <small>DST Start</small>
+        <span class="pull-right weathermatic-settings-input-small">
+          <select onchange={{action (mut model.dstStartDay) value="target.value"}}>
+            {{#each availableDaysOfWeek as |item|}}
+              <option value={{item.value}}
+                selected={{equiv item.value model.dstStartDay}}>{{item.label}}</option>
+            {{/each}}
+          </select>
+
+          <select onchange={{action (mut model.dstStartWeek) value="target.value"}}>
+            {{#each availableWeeksOfMonth as |item|}}
+              <option value={{item.value}}
+                selected={{equiv item.value model.dstStartWeek}}>{{item.label}}</option>
+            {{/each}}
+          </select>
+
+          <select onchange={{action (mut model.dstStartMonth) value="target.value"}}>
+            {{#each availableMonths as |item|}}
+              <option value={{item.value}}
+                selected={{equiv item.value model.dstStartMonth}}>{{item.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+      <li class="table-view-cell">
+        <small>DST End</small>
+        <span class="pull-right weathermatic-settings-input-small">
+          <select onchange={{action (mut model.dstStopDay) value="target.value"}}>
+            {{#each availableDaysOfWeek as |item|}}
+              <option value={{item.value}}
+                selected={{equiv item.value model.dstStopDay}}>{{item.label}}</option>
+            {{/each}}
+          </select>
+
+          <select onchange={{action (mut model.dstStopWeek) value="target.value"}}>
+            {{#each availableWeeksOfMonth as |item|}}
+              <option value={{item.value}}
+                selected={{equiv item.value model.dstStopWeek}}>{{item.label}}</option>
+            {{/each}}
+          </select>
+
+          <select onchange={{action (mut model.dstStopMonth) value="target.value"}}>
+            {{#each availableMonths as |item|}}
+              <option value={{item.value}}
+                selected={{equiv item.value model.dstStopMonth}}>{{item.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+    {{/if}}
+    <li class="table-view-cell">
+      <span>Winterized</span>
+      {{toggle-input value=model.winterized}}
+    </li>
+
+    <li class="table-view-cell">
+      <span>Aircard Comm Error Interval</span>
+      <span class="pull-right weathermatic-settings-input-medium">
+        <select onchange={{action (mut model.commErrorInterval) value="target.value"}}>
+          {{#each availableCommErrorIntervals as |item|}}
+            <option value={{item.value}}
+              selected={{equiv item.value model.commErrorInterval}}>{{item.label}}</option>
+          {{/each}}
+        </select>
+      </span>
+    </li>
+
+  </ul>
+
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} {{t 'common.save'}}
+    </button>
+  </div>
+
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      Other settings
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-activations' model}}
+        <strong>{{fa-icon 'gear spaced-icon'}} Zone Activations</strong>
+        <p>Select which zones are active in Smartlink</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-rain-sensor' model}}
+        <strong>{{fa-icon 'umbrella spaced-icon'}} Rain Sensor Settings</strong>
+        <p>Enable/disable the rain sensor by zone</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-freeze-sensor' model}}
+        <strong>{{fa-icon 'cloud spaced-icon'}} Freeze Sensor Settings</strong>
+        <p>Enable/disable freeze sensor by zone</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-sensor' model}}
+        <strong>{{fa-icon 'retweet spaced-icon'}} Sensor Loop Settings</strong>
+        <p>Enable/disable sensor loop by zone</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-master-valve' model}}
+        <strong>{{fa-icon 'gear spaced-icon'}} Master Valve Settings</strong>
+        <p>Enable/disable master valve by zone</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-program-max-run'}}
+        <strong>{{fa-icon 'sliders spaced-icon'}} Run/Soak Settings</strong>
+        <p>Set program max run/min soak times by zone</p>
+      {{/link-to}}
+    </li>
+  </ul>
+  <div class="weathermatic-page-bottom"></div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

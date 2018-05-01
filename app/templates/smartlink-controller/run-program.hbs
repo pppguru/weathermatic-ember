@@ -1,0 +1,69 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.select-program' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">
+    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - {{t 'controllerOptions.runProgram'}}
+  </h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{t 'confirmProgram.subTitle'}}
+    </li>
+    <li class="table-view-cell">
+      {{t 'common.site'}}
+      <button class="btn">
+        {{fa-icon 'building'}} {{model.smartlinkController.site.name}}
+      </button>
+    </li>
+    <li class="table-view-cell">
+      {{t 'common.controller'}}
+      <button class="btn">
+        {{fa-icon 'signal'}} {{model.smartlinkController.name}}
+      </button>
+    </li>
+  </ul>
+
+  <div class="content-padded">
+    <p>{{t 'confirmZone.zonePrompt'}}</p>
+  </div>
+  <span class="btn btn-block weathermatic-btn-run-program {{cssClass}}">
+    {{#if (eq model.identifier "A")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programA'}}</h3>
+    {{/if}}
+    {{#if (eq model.identifier "B")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programB'}}</h3>
+    {{/if}}
+    {{#if (eq model.identifier "C")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programC'}}</h3>
+    {{/if}}
+    {{#if (eq model.identifier "D")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programD'}}</h3>
+    {{/if}}
+    {{#if model.description.length}}
+      <p class="weathermatic-run-program-description">
+        {{model.description}}
+      </p>
+    {{/if}}
+  </span>
+
+  <div class="content-padded">
+    <p>{{t 'common.buttonPrompt'}}</p>
+
+    <button class="btn btn-block btn-positive" {{action 'runProgram'}}>
+      {{fa-icon 'check'}} {{t 'common.go'}}
+    </button>
+
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
+      {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
+    {{/link-to}}
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

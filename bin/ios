@@ -1,0 +1,58 @@
+#!/bin/bash
+set -e
+
+#########################################
+# Optional environment variables
+# NO_VER        set to skip incrementing the build version number
+# EMBER_ENV     set to 'development', 'staging', etc, defaults to 'production'
+# SKIP_PLUGINS  set to skip installing cordova plugins if you've already
+#########################################
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+CORDOVA_DIR=$DIR/../cordova
+
+function msg {
+  echo "============================================"
+  echo "$1"
+  echo "============================================"
+}
+
+echo "Killing XCode..."
+xcodepids=$(ps aux | grep 'Xcod[e]' | awk '{print $2}')
+if [ "$xcodepids" ]; then
+  kill $xcodepids;
+fi
+echo "It's dead"
+
+msg "Removing old XCode project"
+ember cordova platform remove ios
+
+msg "Adding ios platform"
+ember cordova platform add ios
+
+msg "Adding plugins"
+source  $DIR/install_plugins
+
+if [ "$NO_VER" ]; then
+  msg "NO_VER was set, will not increment the build version"
+else
+  PREV_VERSION=$(cat $CORDOVA_DIR/ios-last-build-version)
+  PREFIX=$(echo "$PREV_VERSION" | grep -o "[0-9]*\.[0-9]*\.")
+  LAST_NODE=$(echo "$PREV_VERSION" | grep -o "[0-9]*$")
+  NEW_VERSION="$PREFIX$(($LAST_NODE+1))"
+
+  msg "Updating version to: $NEW_VERSION"
+  sed -i '.tmp' "s/ios-CFBundleVersion=\"[0-9]*\.[0-9]*\.[0-9]*\"/ios-CFBundleVersion=\"$NEW_VERSION\"/" $CORDOVA_DIR/config.xml
+  if [ "$?" -ne 0 ]; then
+    echo "Could not update version, bailing"
+    exit 1
+  fi
+  rm $CORDOVA_DIR/config.xml.tmp
+  echo $NEW_VERSION > $CORDOVA_DIR/ios-last-build-version
+fi
+
+msg "Building XCode project"
+MOBILE_PLATFORM=ios ember cordova:build --environment ${EMBER_ENV:=production} --platform ios
+
+msg "Opening XCode project"
+ember cordova:open
